@@ -27,9 +27,10 @@ group :test do
 end
 
 group :development, :test do
-  gem 'factory_bot', '~> 5.1.0'
+  gem 'factory_bot_rails', '~> 5.1.0'
+  gem 'faker', '~> 2.14.0'
   gem 'shoulda-matchers', '~> 4.1.0'
-  gem "rspec-rails"
+  gem "rspec-rails", '~> 4.0.1'
   gem 'pry-byebug'
   gem 'pry-rails'
 end
