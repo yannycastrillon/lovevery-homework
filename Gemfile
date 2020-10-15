@@ -15,9 +15,6 @@ gem 'jbuilder', '~> 2.7'
 gem "nokogiri", ">= 1.10.8"
 gem "actionview", ">= 6.0.2.2"
 
-
-
-
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
@@ -29,6 +26,12 @@ group :test do
   gem 'webdrivers'
 end
 
-gem "rspec-rails", groups: [ :development, :test ]
+group :development, :test do
+  gem 'factory_bot', '~> 5.1.0'
+  gem 'shoulda-matchers', '~> 4.1.0'
+  gem "rspec-rails"
+  gem 'pry-byebug'
+  gem 'pry-rails'
+end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

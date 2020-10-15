@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_21_201540) do
+ActiveRecord::Schema.define(version: 2020_10_14_182006) do
 
   create_table "children", force: :cascade do |t|
     t.string "full_name", null: false
@@ -19,6 +19,27 @@ ActiveRecord::Schema.define(version: 2019_09_21_201540) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["full_name", "birthdate", "parent_name"], name: "index_children_on_full_name_and_birthdate_and_parent_name", unique: true
+  end
+
+  create_table "gifters", force: :cascade do |t|
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "email", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_gifters_on_email", unique: true
+  end
+
+  create_table "gifts", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.integer "child_id", null: false
+    t.integer "gifter_id", null: false
+    t.text "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["child_id"], name: "index_gifts_on_child_id"
+    t.index ["gifter_id"], name: "index_gifts_on_gifter_id"
+    t.index ["product_id"], name: "index_gifts_on_product_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -45,6 +66,9 @@ ActiveRecord::Schema.define(version: 2019_09_21_201540) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "gifts", "children"
+  add_foreign_key "gifts", "gifters"
+  add_foreign_key "gifts", "products"
   add_foreign_key "orders", "children"
   add_foreign_key "orders", "products"
 end
