@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Gifter, type: :model do
   describe '#associations' do
-    it { is_expected.to have_many(:children).through(:gifts) }
     it { is_expected.to have_many(:gifts) }
+    it { is_expected.to have_many(:children).through(:gifts) }
   end
 
   describe "#validations" do
