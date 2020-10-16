@@ -1,0 +1,15 @@
+<article class="p-3">
+  <h1>This is your gift</h1>
+  <section class="card border rounded rounded-lg text-light">
+    <div class="card-body">
+      <h2 class="card-title h4">Gift <span class="font-weight-normal h5">#<%= @gift.user_facing_id %></span></h2>
+      <h3 class="card-subtitle text-white font-weight-lighter h5 mb-2">
+        <%= @gift.product.name %>
+        for
+        <strong><%= @gift.child.full_name %></strong>
+      </h3>
+      <p class="card-text">
+      </p>
+    </div>
+  </section>
+</article>
