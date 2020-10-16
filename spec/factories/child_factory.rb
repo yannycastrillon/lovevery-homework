@@ -6,10 +6,6 @@ FactoryBot.define do
     birthdate { Faker::Date.birthday(min_age: 0, max_age: 5) }
     parent_name { "#{Faker::Name.unique.first_name} #{parent_last_name}" }
 
-    trait :message do
-      message { Faker::TvShows::GameOfThrones.quote }
-    end
-
     transient do
       parent_last_name { Faker::Name.unique.last_name }
     end
