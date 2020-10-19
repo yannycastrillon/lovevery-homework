@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
+  describe 'associations' do
+    it { is_expected.to have_one(:order_gift) }
+    it { is_expected.to have_one(:gift).through(:order_gift) }
+  end
+  
   describe "#validations" do
     it "requires shipping_name" do
       order = Order.new(

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_14_182006) do
+ActiveRecord::Schema.define(version: 2020_10_19_141459) do
 
   create_table "children", force: :cascade do |t|
     t.string "full_name", null: false
@@ -42,6 +42,15 @@ ActiveRecord::Schema.define(version: 2020_10_14_182006) do
     t.index ["product_id"], name: "index_gifts_on_product_id"
   end
 
+  create_table "order_gifts", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "gift_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gift_id"], name: "index_order_gifts_on_gift_id"
+    t.index ["order_id"], name: "index_order_gifts_on_order_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.string "user_facing_id", null: false
     t.integer "product_id", null: false
@@ -69,6 +78,8 @@ ActiveRecord::Schema.define(version: 2020_10_14_182006) do
   add_foreign_key "gifts", "children"
   add_foreign_key "gifts", "gifters"
   add_foreign_key "gifts", "products"
+  add_foreign_key "order_gifts", "gifts"
+  add_foreign_key "order_gifts", "orders"
   add_foreign_key "orders", "children"
   add_foreign_key "orders", "products"
 end
