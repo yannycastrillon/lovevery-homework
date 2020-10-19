@@ -28,7 +28,7 @@ RSpec.describe GiftsController, type: :controller do
     end
    
     context 'when gift record is not found' do
-      xit 'returns http not_found' do
+      it 'returns http not_found' do
         get :show, params: { id: 9999 }
 
         expect(response).to have_http_status(:not_found)
@@ -37,26 +37,66 @@ RSpec.describe GiftsController, type: :controller do
   end
 
   describe 'POST #create' do
-    context "when child's Name or Birthday or child's Parent Name does not match" do
-      let(:params) { { child_name: 'Tyrion', birthdate: Date.new(1600,9,23), parent_name: 'Jaime' } }
+    context "when child's parameters (full_name, birthdate or parent_name) does not match any children records" do
+      let(:params) do 
+        {
+          gift: {
+            product_id: product.id,
+            child: {
+              full_name: 'Tyrion Lannister', 
+              birthdate: Date.new(1600,9,23),
+              parent_name: 'Jaime Lannister'
+            },
+            gifter: {
+              first_name: gifter.first_name,
+              last_name: gifter.last_name,
+              email: gifter.email
+            }
+          }
+        }
+      end
 
       before { child1 }
+
       it 'must return error' do
         post :create, params: params
 
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:not_found)
+        expect(parsed_response['errors']).to eq(['Child was not found']) 
       end
     end
-    context "when child's Name, Birthday, and child's Parent Name does match" do
-      let(:params) { { child_name: child1.full_name, birthdate: child1.birthdate, parent_name: child1.parent_name }}
 
-      it 'must return success and create a new record on gift database' do
-        expect {
-          post :create, params: params
+    context "when child's Name, Birthdate, and child's Parent Name does match" do
+      let(:params) do 
+        {
+          gift: {
+            product_id: product.id,
+            child: {
+              full_name: child1.full_name, 
+              birthdate: child1.birthdate,
+              parent_name: child1.parent_name,
+            },
+            gifter: {
+              first_name: gifter.first_name,
+              last_name: gifter.last_name,
+              email: gifter.email
+            }
+          }
+        }
+      end
 
-        }.to change(Gift, :count).by(1)
+      it 'must return success and create a new gift record' do
+        post :create, params: params 
 
-        expect(response).to have_http_status(:success)
+        gift = Gift.includes(:child, :gifter).last
+
+        expect(gift.child.full_name).to eq(child1.full_name)
+        expect(gift.child.birthdate).to eq(child1.birthdate)
+        expect(gift.child.parent_name).to eq(child1.parent_name)
+
+        expect(gift.gifter.first_name).to eq(gifter.first_name)
+        expect(gift.gifter.last_name).to eq(gifter.last_name)
+        expect(gift.gifter.email).to eq(gifter.email)
       end
     end
   end
