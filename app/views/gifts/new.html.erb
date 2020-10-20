@@ -4,7 +4,7 @@
   </aside>
 <% end %>
 <section class="mt-2 pt-3">
-<h1 class="h2 text-center text-uppercase text-tracked">Check Out</h1>
+<h1 class="h2 text-center text-uppercase text-tracked">Gift Check Out</h1>
 <h2 class="h4 mt-4"><%= @gift.product.name %></h2>
 <h3 class="h5 font-weight-normal mb-3"><%= number_to_currency(@gift.product.price_cents / 100) %></h3>
 <%= form_with model: @gift, local: true  do |gift_form| %>
@@ -58,19 +58,19 @@
   </div>
   <div class="form-row">
     <div class="border rounded p-3 bg-light col-md-6">
-     <%= gift_form.fields_for @order do |order_form| %>
+     <%= gift_form.fields_for 'card' do |card_form| %>
       <div class="form-group col-md-12">
-        <%= order_form.label :credit_card_number %>
-        <%= order_form.password_field :credit_card_number, placeholder: "0000 0000 0000 0000", class: "form-control" %>
+        <%= card_form.label :credit_card_number %>
+        <%= card_form.password_field :credit_card_number, placeholder: "0000 0000 0000 0000", class: "form-control" %>
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
-          <%= order_form.label :expiration_month %>
-          <%= order_form.month_field :expiration_month, class: "form-control" %>
+          <%= card_form.label :expiration_month, "Expiration Month" %>
+          <%= card_form.select :expiration_month, 01..12, {}, { class: "form-control" } %>
         </div>
         <div class="form-group col-md-6">
-          <%= order_form.label :expiration_year %>
-          <%= order_form.select :expiration_year, 2000..2030, {}, { class: "form-control" } %>
+          <%= card_form.label :expiration_year, "Expiration Year"%>
+          <%= card_form.select :expiration_year, 2000..2030, {}, { class: "form-control" } %>
         </div>
       </div>
      <% end %>

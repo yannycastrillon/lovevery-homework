@@ -19,7 +19,7 @@
     </div>
     <div class="form-group col-md-6">
       <%= form.label :child_birthdate, "Your Child's Birthdate (or expected date)" %>
-      <%= form.text_field :child_birthdate, class: "form-control" %>
+      <%= form.date_field :child_birthdate, value: (Time.now - 20.days).strftime("%Y-%m-%d"), class: "form-control", data: { provide:'datepicker' } %>
       <small id="passwordHelpBlock" class="form-text text-muted">
         Use format YYYY-MM-DD
       </small>
@@ -46,11 +46,11 @@
     <div class="form-row">
       <div class="form-group col-md-3">
         <%= form.label :expiration_month %>
-        <%= form.text_field :expiration_month, class: "form-control" %>
+        <%= form.select :expiration_month, 01..12, {}, { class: "form-control" } %>
       </div>
       <div class="form-group col-md-3">
         <%= form.label :expiration_year %>
-        <%= form.text_field :expiration_year, class: "form-control" %>
+        <%= form.select :expiration_year, 2000..2030, {}, { class: "form-control" } %>
       </div>
     </div>
   </div>

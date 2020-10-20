@@ -10,10 +10,10 @@ class GiftsController < ApplicationController
     result = BuildGiftService.call(child_attrs, gifter_attrs, gift_attrs, credit_card_attrs)
     raise result.error if result.is_a?(Failure)
 
-    gift = result.object
+    @gift = result.object
 
-    if gift.save
-      redirect_to products_path
+    if @gift.save
+      redirect_to gift_path(@gift)
     else
       render :new
     end
@@ -41,7 +41,7 @@ class GiftsController < ApplicationController
   end
 
   def credit_card_attrs
-    credit_card_params[:order].to_hash
+    credit_card_params[:card].to_hash
   end
 
   def gift_params
@@ -57,6 +57,6 @@ class GiftsController < ApplicationController
   end
 
   def credit_card_params
-    params.require(:gift).permit(order: [:credit_card_number, :expiration_month, :expiration_year])
+    params.require(:gift).permit(card: [:credit_card_number, :expiration_month, :expiration_year])
   end
 end

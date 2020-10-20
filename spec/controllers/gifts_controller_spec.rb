@@ -52,7 +52,7 @@ RSpec.describe GiftsController, type: :controller do
               last_name: gifter.last_name,
               email: gifter.email
             },
-            order: {
+            card: {
               credit_card_number: '4444 4444 4444 4444' ,
               expiration_month: '09',
               expiration_year: '2023'
@@ -86,7 +86,7 @@ RSpec.describe GiftsController, type: :controller do
               last_name: gifter.last_name,
               email: gifter.email
             },
-            order: {
+            card: {
               credit_card_number: '4444 4444 4444 4444' ,
               expiration_month: '09',
               expiration_year: '2023'
