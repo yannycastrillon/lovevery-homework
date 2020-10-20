@@ -3,10 +3,11 @@ class GiftsController < ApplicationController
 
   def new
     @gift = Gift.new(gift_params)
+    @order = Order.new(product_id: Product.find(gift_params[:product_id]))
   end
 
   def create
-    result = BuildGiftService.call(child_attributes, gifter_attributes, gift_attributes)
+    result = BuildGiftService.call(child_attrs, gifter_attrs, gift_attrs, credit_card_attrs)
     raise result.error if result.is_a?(Failure)
 
     gift = result.object
@@ -27,16 +28,20 @@ class GiftsController < ApplicationController
     @gift ||= Gift.find(params[:id])
   end
 
-  def child_attributes
+  def child_attrs
     child_params[:child].to_hash
   end
 
-  def gifter_attributes
+  def gifter_attrs
     gifter_params[:gifter].to_hash
   end
 
-  def gift_attributes
+  def gift_attrs
     gift_params.to_hash
+  end
+
+  def credit_card_attrs
+    credit_card_params[:order].to_hash
   end
 
   def gift_params
@@ -49,5 +54,9 @@ class GiftsController < ApplicationController
 
   def gifter_params
     params.require(:gift).permit(gifter: [:first_name, :last_name, :email])
+  end
+
+  def credit_card_params
+    params.require(:gift).permit(order: [:credit_card_number, :expiration_month, :expiration_year])
   end
 end

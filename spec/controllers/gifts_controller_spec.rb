@@ -51,6 +51,11 @@ RSpec.describe GiftsController, type: :controller do
               first_name: gifter.first_name,
               last_name: gifter.last_name,
               email: gifter.email
+            },
+            order: {
+              credit_card_number: '4444 4444 4444 4444' ,
+              expiration_month: '09',
+              expiration_year: '2023'
             }
           }
         }
@@ -80,9 +85,21 @@ RSpec.describe GiftsController, type: :controller do
               first_name: gifter.first_name,
               last_name: gifter.last_name,
               email: gifter.email
+            },
+            order: {
+              credit_card_number: '4444 4444 4444 4444' ,
+              expiration_month: '09',
+              expiration_year: '2023'
             }
           }
         }
+      end
+      let(:order1) do
+        create(:order, child: child1, product: product)
+      end
+
+      before do
+        child1.orders << order1
       end
 
       it 'must return success and create a new gift record' do

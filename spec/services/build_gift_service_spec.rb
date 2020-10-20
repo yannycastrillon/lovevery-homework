@@ -4,15 +4,32 @@ require 'rails_helper'
 
 RSpec.describe BuildGiftService, type: :service do
   let(:message) { 'Enjoy this new toy' }
-  let(:child) { build_stubbed(:child) }
+  let(:child) { create(:child) }
   let(:gifter) { build_stubbed(:gifter) }
-  let(:product) { build_stubbed(:product, :between_13_and_17) }
+  let(:product) { create(:product, :between_13_and_17) }
   let(:gift) { build_stubbed(:gift, product: product, message: message) }
+  let(:credit_card_attrs) do
+    {
+      credit_card_number: '4444 4444 4444 4444' ,
+      expiration_month: '09',
+      expiration_year: '2023'
+    }
+  end
 
-  subject { described_class.call(child.attributes, gifter.attributes, gift.attributes) }
+  subject { described_class.call(child.attributes, gifter.attributes, gift.attributes, credit_card_attrs) }
 
   describe '#call' do
     context 'when child and gifter are found' do
+      let(:order) { build(:order) }
+      let(:order_info) do
+        {
+          product_id: product.id,
+          shipping_name: 'Arya Stark',
+          address: '123 Nithwatch RD',
+          zipcode: '90028',
+          paid: false
+        }
+      end
       before do
         allow(SearchChildService).to(
           receive(:call).with(child.full_name, child.birthdate, child.parent_name)
@@ -22,9 +39,11 @@ RSpec.describe BuildGiftService, type: :service do
           receive(:call).with(gifter.first_name, gifter.last_name, gifter.email)
                         .and_return(gifter)
         )
+        allow(CreateOrderService).to(
+          receive(:call).and_return(Success.new(object: order))
+        )
       end
       it 'must return Success and gift instance' do
-        
         expect(subject.status).to eq(:success)
         expect(subject).to be_instance_of(Success)
         expect(subject.object.present?).to be_truthy
