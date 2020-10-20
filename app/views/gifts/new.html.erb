@@ -16,15 +16,15 @@
           <%= gift_form.fields_for Gifter.new do |gifter_form| %>
             <div class="form-group">
               <%= gifter_form.label :first_name, "First Name" %>
-              <%= gifter_form.text_field :first_name, value: "Yanny", required: true, class: "form-control" %>
+              <%= gifter_form.text_field :first_name, required: true, class: "form-control" %>
             </div>
             <div class="form-group">
               <%= gifter_form.label :last_name, "Last Name" %>
-              <%= gifter_form.text_field :last_name, value: "Castrillon", required: true, class: "form-control" %>
+              <%= gifter_form.text_field :last_name, required: true, class: "form-control" %>
             </div>
             <div class="form-group">
               <%= gifter_form.label :email, "Email" %>
-              <%= gifter_form.text_field :email, value: 'yanny.castrillon@gmail.com', required: true, class: "form-control" %>
+              <%= gifter_form.text_field :email, required: true, class: "form-control" %>
             </div>
           <% end %>
         </div>
@@ -38,15 +38,15 @@
           <%= gift_form.fields_for Child.new do |child_form| %>
             <div class="form-group col-md-12">
               <%= child_form.label :full_name, "Full Name" %>
-              <%= child_form.text_field :full_name, value: "Tyrion Lannister", required: true, class: "form-control" %>
+              <%= child_form.text_field :full_name, required: true, class: "form-control" %>
             </div>
             <div class="form-group col-md-12">
               <%= child_form.label :birthdate, "Birthdate" %>
-              <%= child_form.date_field :birthdate, value: (Time.now - 20.days).strftime("%Y-%m-%d"), required: true, class: "form-control", data: { provide:'datepicker' } %>
+              <%= child_form.date_field :birthdate, required: true, class: "form-control", data: { provide:'datepicker' } %>
             </div>
             <div class="form-group col-md-12">
               <%= child_form.label :parent_name, "Parent Name" %>
-              <%= child_form.text_field :parent_name, value: "Jamie Lannister", required: true, class: "form-control" %>
+              <%= child_form.text_field :parent_name, required: true, class: "form-control" %>
             </div>
           <% end %>
         </div>
@@ -70,7 +70,7 @@
         </div>
         <div class="form-group col-md-6">
           <%= card_form.label :expiration_year, "Expiration Year"%>
-          <%= card_form.select :expiration_year, 2000..2030, {}, { class: "form-control" } %>
+          <%= card_form.select :expiration_year, 2020..2030, {}, { class: "form-control" } %>
         </div>
       </div>
      <% end %>
@@ -79,7 +79,7 @@
     <div class="border rounded p-3 col-md-5">
       <div class="form-group col-md-12">
         <%= gift_form.label :message, "Message: " %>
-        <%= gift_form.text_area :message, value: "Enjoy this new toy!", size: "20x6", class: "form-control" %>
+        <%= gift_form.text_area :message, size: "20x6", class: "form-control" %>
       </div>
     </div>
   </div>

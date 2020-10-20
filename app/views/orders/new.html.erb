@@ -19,7 +19,7 @@
     </div>
     <div class="form-group col-md-6">
       <%= form.label :child_birthdate, "Your Child's Birthdate (or expected date)" %>
-      <%= form.date_field :child_birthdate, value: (Time.now - 20.days).strftime("%Y-%m-%d"), class: "form-control", data: { provide:'datepicker' } %>
+      <%= form.date_field :child_birthdate, class: "form-control", data: { provide:'datepicker' } %>
       <small id="passwordHelpBlock" class="form-text text-muted">
         Use format YYYY-MM-DD
       </small>
@@ -40,7 +40,7 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <%= form.label :credit_card_number %>
-        <%= form.password_field :credit_card_number, class: "form-control" %>
+        <%= form.password_field :credit_card_number, placeholder: "0000 0000 0000 0000", class: "form-control" %>
       </div>
     </div>
     <div class="form-row">
@@ -50,7 +50,7 @@
       </div>
       <div class="form-group col-md-3">
         <%= form.label :expiration_year %>
-        <%= form.select :expiration_year, 2000..2030, {}, { class: "form-control" } %>
+        <%= form.select :expiration_year, 2020..2030, {}, { class: "form-control" } %>
       </div>
     </div>
   </div>
