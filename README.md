@@ -26,42 +26,44 @@ The basic flow is:
       - Expiration Year
    - **Message**
       - An optional text to be attach to the gift.
-   
 1. Click **purchase gift** to give away that product.
 1. This will create an order in our system, it will find or create a new gifter and lastly it will create a gift record in our database.
 
 ### Important things to consider: 
-1. Child MUST already exist on our system.
-   - This means that an **ORDER** must had been purchased in the past with the child's information.
-1. **Full name, Birthdate** and **Parent Name** values must strictly match the ones in our system.
-1. **Address** and **Zipcode** are obtained from Child's last registered order.
-1. **Credit Card information** must be valid.
+   1. Child MUST already exist on our system.
+      - This means that an **ORDER** must had been purchased in the past with the child's information.
+   1. **Full name, Birthdate** and **Parent Name** values must strictly match the ones in our system.
+   1. **Address** and **Zipcode** are obtained from Child's last registered order.
+   1. **Credit Card information** must be valid.
+
 
 ## Getting Set Up
 
-Assuming you have Ruby installed and are using a Ruby version manager like rvm or rbenv, you should be able to:
+   Assuming you have Ruby installed and are using a Ruby version manager like rvm or rbenv, you should be able to:
 
-```
-> bin/setup
-> bin/rspec
-```
+   ```
+   > bin/setup
+   > bin/rspec
+   ```
 
-This should install needed gems, set up your databases, and then run the tests, which should all be green and pass.
+   This should install needed gems, set up your databases, and then run the tests, which should all be green and pass.
+
 
 ## Running the app
 
-Run the following command to spin up the server:
+   Run the following command to spin up the server:
 
-```
-> rails server
-```
-Then go to your browser: `localhost:3000` and the app should be up and running.
+   ```
+   > rails server
+   ```
+   Then go to your browser: `localhost:3000` and the app should be up and running.
+
 
 ## Notes About The Code
 I follow a TDD approach to overcome and takle this **Gift** feature.
 
 ### Models
-. I created 3 new models (_Gift, Gifter and OderGift_).
+I created 3 new models (_Gift, Gifter and OderGift_).
 1. **Gifter** => It will hold all the data of the person providing the gift.
 1. **Gift** => It is the main model of this feature because it wires up the bridge connection or join model between [Gifter, Product, Child and Order].
 1. **OrderGift** => It is responsible of associating the an order with a gift.
@@ -78,10 +80,9 @@ You will also find a couple of **services** which will be in charge of a very sp
 1. They all contain a single public interface method `call`.
 2. They focus on a specific task from the bussines logic.
 3. They return either `failure` or `success`. If it's a `success` then it should return the proper `instance object` to be save/update in DB.
-
-To follow this pattern strategy I created 2 POROs (Plain Old Ruby Objects) `Success` and `Failure` to encapsulate custom exceptions and responses from each service objects. Additionally, I opted to delegate the `Exceptions handling` responsibility to `ApplicationController` because it's the common place where all controllers inherit from, and a centralize place to catch each exception and render them.
+   To follow this pattern strategy I created 2 POROs (Plain Old Ruby Objects) `Success` and `Failure` to encapsulate custom exceptions and responses from each service objects. Additionally, I opted to delegate the `Exceptions handling` responsibility to `ApplicationController` because it's the common place where all controllers inherit from, and a centralize place to catch each exception and render them.
 
 ### RSpec
-You will find must all of the new main models, controllers and services to have tests around their functionalities and edge cases.
-Each Model, Service and Controller will have their proper `xxxx_spec.rb` file.
-I also apply `factories` to be able to mock model data and proper scenarios.
+   You will find must all of the new main models, controllers and services to have tests around their functionalities and edge cases.
+   Each Model, Service and Controller will have their proper `xxxx_spec.rb` file.
+   I also apply `factories` to be able to mock model data and proper scenarios.
