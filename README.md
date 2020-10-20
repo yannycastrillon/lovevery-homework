@@ -60,13 +60,13 @@ The basic flow is:
 
 
 ## Notes About The Code
-I follow a TDD approach to overcome and takle this **Gift** feature.
+I followed a TDD approach to overcome and tackle this **Gift** feature.
 
 ### Models
 I created 3 new models (_Gift, Gifter and OderGift_).
 1. **Gifter** => It will hold all the data of the person providing the gift.
 1. **Gift** => It is the main model of this feature because it wires up the bridge connection or join model between [Gifter, Product, Child and Order].
-1. **OrderGift** => It is responsible of associating the an order with a gift.
+1. **OrderGift** => It is responsible for associating the order with a gift.
    - _An order can have many gifts but a single gift can only have one order_ => Solid idea on how I approached this feature.
    
 ### Services
