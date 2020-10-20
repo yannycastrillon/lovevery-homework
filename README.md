@@ -59,6 +59,10 @@ The basic flow is:
    Then go to your browser: `localhost:3000` and the app should be up and running.
 
 
+## Heroku Deploment 
+
+https://lovevery-app.herokuapp.com/
+
 ## Notes About The Code
 I followed a TDD approach to overcome and tackle this **Gift** feature.
 
