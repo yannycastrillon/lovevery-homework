@@ -12,10 +12,13 @@
 
 ActiveRecord::Schema.define(version: 2020_10_19_141459) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "children", force: :cascade do |t|
-    t.string "full_name", null: false
-    t.date "birthdate", null: false
-    t.string "parent_name", null: false
+    t.string "full_name", null: false, comment: "The child's full name"
+    t.date "birthdate", null: false, comment: "This child's birthdate or expecting date"
+    t.string "parent_name", null: false, comment: "The full name of the child's parent"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["full_name", "birthdate", "parent_name"], name: "index_children_on_full_name_and_birthdate_and_parent_name", unique: true
@@ -31,9 +34,9 @@ ActiveRecord::Schema.define(version: 2020_10_19_141459) do
   end
 
   create_table "gifts", force: :cascade do |t|
-    t.integer "product_id", null: false
-    t.integer "child_id", null: false
-    t.integer "gifter_id", null: false
+    t.bigint "product_id", null: false, comment: "What product is this order for?"
+    t.bigint "child_id", null: false, comment: "Which child is this for?"
+    t.bigint "gifter_id", null: false, comment: "Which gifter is sending the gift?"
     t.text "message"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -43,8 +46,8 @@ ActiveRecord::Schema.define(version: 2020_10_19_141459) do
   end
 
   create_table "order_gifts", force: :cascade do |t|
-    t.integer "order_id", null: false
-    t.integer "gift_id", null: false
+    t.bigint "order_id", null: false, comment: "What order to give away gift?"
+    t.bigint "gift_id", null: false, comment: "Which gift are you ordering?"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["gift_id"], name: "index_order_gifts_on_gift_id"
@@ -52,25 +55,25 @@ ActiveRecord::Schema.define(version: 2020_10_19_141459) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.string "user_facing_id", null: false
-    t.integer "product_id", null: false
-    t.integer "child_id", null: false
-    t.string "shipping_name", null: false
-    t.string "address", null: false
-    t.string "zipcode", null: false
-    t.boolean "paid", null: false
+    t.string "user_facing_id", null: false, comment: "A user-facing ID we can give the user to track their order in our system"
+    t.bigint "product_id", null: false, comment: "What product is this order for?"
+    t.bigint "child_id", null: false, comment: "Which child is this for?"
+    t.string "shipping_name", null: false, comment: "Name of who we are shipping to"
+    t.string "address", null: false, comment: "Street Address for shipping"
+    t.string "zipcode", null: false, comment: "Zip Code for shipping"
+    t.boolean "paid", null: false, comment: "True if this order has been paid via a successful charge"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["child_id"], name: "index_orders_on_child_id"
     t.index ["product_id"], name: "index_orders_on_product_id"
   end
 
-  create_table "products", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "description", null: false
-    t.integer "price_cents", null: false
-    t.integer "age_low_weeks", null: false
-    t.integer "age_high_weeks", null: false
+  create_table "products", comment: "Product catalog", force: :cascade do |t|
+    t.string "name", null: false, comment: "The name of the product"
+    t.text "description", null: false, comment: "Longer description of the product"
+    t.integer "price_cents", null: false, comment: "Retail price, in cents, of the product"
+    t.integer "age_low_weeks", null: false, comment: "Lowest appropriate age for this product, in weeks"
+    t.integer "age_high_weeks", null: false, comment: "Highest appropriate age for this product, in weeks"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
