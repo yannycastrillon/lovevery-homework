@@ -19,8 +19,8 @@ RSpec.feature "Purchase Product", type: :feature do
     click_on "Buy Now $10.00"
 
     fill_in "order[credit_card_number]", with: "4111111111111111"
-    fill_in "order[expiration_month]", with: 12
-    fill_in "order[expiration_year]", with: 25
+    select "12", from: "order[expiration_month]"
+    select "2025", from: "order[expiration_year]"
     fill_in "order[shipping_name]", with: "Pat Jones"
     fill_in "order[address]", with: "123 Any St"
     fill_in "order[zipcode]", with: 83701
@@ -54,8 +54,8 @@ RSpec.feature "Purchase Product", type: :feature do
     click_on "Buy Now $10.00"
 
     fill_in "order[credit_card_number]", with: "4242424242424242"
-    fill_in "order[expiration_month]", with: 12
-    fill_in "order[expiration_year]", with: 25
+    select "12", from: "order[expiration_month]"
+    select "2025", from: "order[expiration_year]"
     fill_in "order[shipping_name]", with: "Pat Jones"
     fill_in "order[address]", with: "123 Any St"
     fill_in "order[zipcode]", with: 83701

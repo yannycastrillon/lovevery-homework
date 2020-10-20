@@ -12,6 +12,9 @@
           <%= number_to_currency(product.price_cents / 100) %>
           <div>
             <%= link_to "More Details…", product, class: "card-link btn btn-lg btn-success text-uppercase font-weight-bolder text-tracked f-small" %>
+            <%= link_to new_gift_path(gift: { product_id: product.id }), class: "card-link btn btn-lg btn-secondary text-uppercase font-weight-bolder text-tracked f-small"  do %>
+              Give Gift
+            <% end %>
           </div>
         </p>
       </div>
