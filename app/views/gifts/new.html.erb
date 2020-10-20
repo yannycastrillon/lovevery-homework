@@ -58,20 +58,22 @@
   </div>
   <div class="form-row">
     <div class="border rounded p-3 bg-light col-md-6">
+     <%= gift_form.fields_for @order do |order_form| %>
       <div class="form-group col-md-12">
-        <%= gift_form.label :credit_card_number %>
-        <%= gift_form.password_field :credit_card_number, placeholder: "0000 0000 0000 0000", autocomplete:"email", class: "form-control" %>
+        <%= order_form.label :credit_card_number %>
+        <%= order_form.password_field :credit_card_number, placeholder: "0000 0000 0000 0000", class: "form-control" %>
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
-          <%= gift_form.label :expiration_month %>
-          <%= gift_form.month_field :expiration_month, class: "form-control" %>
+          <%= order_form.label :expiration_month %>
+          <%= order_form.month_field :expiration_month, class: "form-control" %>
         </div>
         <div class="form-group col-md-6">
-          <%= gift_form.label :expiration_year %>
-          <%= gift_form.select :expiration_year, 2000..2030, {}, { class: "form-control" } %>
+          <%= order_form.label :expiration_year %>
+          <%= order_form.select :expiration_year, 2000..2030, {}, { class: "form-control" } %>
         </div>
       </div>
+     <% end %>
     </div>
     <div class="col-md-1"></div>
     <div class="border rounded p-3 col-md-5">
