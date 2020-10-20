@@ -7,7 +7,7 @@ FactoryBot.define do
     shipping_name { "Sansa Stark" }
     address { "123 Winterfell Path" }
     zipcode { "90210" }
-    user_facing_id { "890890908980980" }
+    user_facing_id { "8908909" }
     paid { true }
     
     trait :not_paid do
