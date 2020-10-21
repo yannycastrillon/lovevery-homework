@@ -68,25 +68,25 @@ I followed a TDD approach to overcome and tackle this **Gift** feature.
 
 ### Models
 I created 3 new models (_Gift, Gifter and OderGift_).
-1. **Gifter** => It will hold all the data of the person providing the gift.
-1. **Gift** => It is the main model of this feature because it wires up the bridge connection or join model between [Gifter, Product, Child and Order].
+1. **Gifter** => It holds all the person's data providing the gift.
+1. **Gift** => It is the model's main feature because it wires everything up between [Gifter, Product, Child and Order].
 1. **OrderGift** => It is responsible for associating the order with a gift.
-   - _An order can have many gifts but a single gift can only have one order_ => Solid idea on how I approached this feature.
+   - _An order can have many gifts but a single gift can only have one order_ => Solid idea on how I approached this feature :D .
    
 ### Services
-You will also find a couple of **services** which will be in charge of a very specific responsibility from the bussiness logic.
+You will also find a couple of **services** that are in charge of very specific responsibility from the bussiness logic.
 1. **SearchChildService** => Responsible of finding a child base on their full name, birthdate and parent name.
 1. **SearchGifterService** => Responsible of finding or creating a gifter.
 1. **CreateOrderService** => Responsible of creating the order and calling the Purchase service.
-1. **BuildGiftService** => Responsible of _Orchestrating_ all the above services and returning a gift instance to the controller so it can be save in our system.
+1. **BuildGiftService** => Responsible of _Orchestrating_ all the above services. It also returns a gift instance to the controller so it can be save in our system.
 
-#### _I believe service objects follow 3 principles:_
+#### _I believe service objects follow 3 principles_
 1. They all contain a single public interface method `call`.
 2. They focus on a specific task from the bussines logic.
-3. They return either `failure` or `success`. If it's a `success` then it should return the proper `instance object` to be save/update in DB.
-   To follow this pattern strategy I created 2 POROs (Plain Old Ruby Objects) `Success` and `Failure` to encapsulate custom exceptions and responses from each service objects. Additionally, I opted to delegate the `Exceptions handling` responsibility to `ApplicationController` because it's the common place where all controllers inherit from, and a centralize place to catch each exception and render them.
+3. They return either `failure` or `success`. If it is a `success` then it should return the proper `instance object` to be save/update in database.
+   To follow this pattern strategy I created 2 POROs (Plain Old Ruby Objects) `Success` and `Failure` to encapsulate custom exceptions and responses from each service object. Additionally, I opted to delegate the `Exceptions handling` responsibility to `ApplicationController` because it's the common place where all controllers inherit from, and a centralize place to catch each exception and render them.
 
 ### RSpec
-   You will find must all of the new main models, controllers and services to have tests around their functionalities and edge cases.
+   You will find must all of the new models, controllers and services to have tests around their functionalities and edge cases.
    Each Model, Service and Controller will have their proper `xxxx_spec.rb` file.
-   I also apply `factories` to be able to mock model data and proper scenarios.
+   I also apply `factories` to be able to mock model data and build the testing proper scenarios.
